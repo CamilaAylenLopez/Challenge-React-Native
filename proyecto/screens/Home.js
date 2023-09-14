@@ -1,13 +1,4 @@
-import {
-    StyleSheet,
-    Button,
-    Text,
-    View,
-    Alert,
-    SafeAreaView,
-    TouchableOpacity,
-    FlatList
-} from "react-native";
+import { StyleSheet, Button, Text, View, Alert, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon } from '@iconify/react';
 
