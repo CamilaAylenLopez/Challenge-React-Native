@@ -1,12 +1,23 @@
 import { StyleSheet, Button, Text, View, Alert, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon } from '@iconify/react';
+import { getPlatos } from '../Api'
 
 export default function Home({ navigation }) {
-    
+    //https://api.spoonacular.com/recipes/716429/information?apiKey=3d70ab355729422c8540eed6bf8012cf
+    //https://api.spoonacular.com/recipes/complexSearch?apiKey=3d70ab355729422c8540eed6bf8012cf
+    const [platos, setPlatos] = useState()
+    const traerTodosPlatos = async () => {
+        setPlatos(getPlatos())
+    }
+
+    useEffect(() => {
+        traerTodosPlatos()
+    },[])
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Challenge React Native</Text>
+            <Text>{platos}</Text>
             <View style={styles.footer}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <TouchableOpacity onPress={() => { navigation.navigate("Home") }}>
