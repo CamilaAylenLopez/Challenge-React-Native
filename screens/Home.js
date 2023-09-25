@@ -4,14 +4,23 @@ import { Icon } from '@iconify/react';
 import { getPlatos } from '../Api'; // Asegúrate de importar esta función desde tu módulo Api
 
 export default function Home({ navigation }) {
-    const [platos, setPlatos] = useState([]);
+    const [platos, setPlatos] = useState([{
+        id: null,
+        image: null,
+        title: null,
+    }])
 
     const traerTodosPlatos = async () => {
         const data = await getPlatos()
-        console.log(data)
-        setPlatos([data])
+        const updatedPlatos = data.results.map(e => ({
+            id: e.id,
+            image: e.image,
+            title: e.title,
+        }))
+        console.log(updatedPlatos)
+        setPlatos(updatedPlatos)
     }
-    
+
 
     useEffect(() => {
         traerTodosPlatos();
@@ -20,18 +29,18 @@ export default function Home({ navigation }) {
     return (
         <>
 
-        <>
-        <h5>Menú:</h5>
-        {
-            platos != null && platos.map((platos) => 
-                <div id={platos.id}>
-                    <img src={platos.image}/>
-                    <p>Nombre: {platos.title}</p>
-                    <p>Precio: ${platos.pricePerServing}</p>
-                </div>
-            )
-        }
-        </>
+            <>
+                <h5>Menú:</h5>
+                {
+                    platos != null && platos.map((platos) =>
+                        <div key={platos.id}>
+                            <img src={platos.image} />
+                            <p>Nombre: {platos.title}</p>
+                            {/* <p>Precio: ${platos.pricePerServing}</p> */}
+                        </div>
+                    )
+                }
+            </>
         </>
     );
 }

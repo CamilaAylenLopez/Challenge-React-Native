@@ -1,4 +1,4 @@
-const API = 'https://api.spoonacular.com/recipes/716429/information?apiKey=3d70ab355729422c8540eed6bf8012cf'
+const API = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=3d70ab355729422c8540eed6bf8012cf'
 
 export const getPlatos = async () => {
     const res = await fetch(API, {
@@ -12,7 +12,7 @@ const axios = require('axios');
 
 async function obtenerPlatos() {
   try {
-    const response = await axios.get('https://api.spoonacular.com/recipes/716429/information?apiKey=3d70ab355729422c8540eed6bf8012cf');
+    const response = await axios.get(API);
     const datosPlatos = response.data;
 
     // Aquí puedes hacer lo que necesites con los datos de los platos
