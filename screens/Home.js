@@ -30,16 +30,37 @@ export default function Home({ navigation }) {
         <>
 
             <>
-                <h5>Menú:</h5>
+                <Text>Menú:</Text>
                 {
                     platos != null && platos.map((platos) =>
-                        <div key={platos.id}>
-                            <img src={platos.image} />
-                            <p>Nombre: {platos.title}</p>
+                        <View key={platos.id}>
+                            <View style={styles.card}>
+                                <img src={platos.image} style={styles.image} />
+                                <View style={styles.division}>
+                                    <Text style={styles.texto}>{platos.title}</Text>
+                                    {/* <Text style={styles.texto}>{platos.caracteristicas}</Text> */}
+                                    <View style={{flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around'}}>
+                                        <Icon icon="zondicons:add-solid" width={25}/>
+                                        <Icon icon="zondicons:close-solid" width={25}/>
+                                    </View>
+                                </View>
+                            </View>
+                            {/* <img src={platos.image} />
+                            <p>Nombre: {platos.title}</p> */}
                             {/* <p>Precio: ${platos.pricePerServing}</p> */}
-                        </div>
+                        </View>
                     )
                 }
+                <View style={styles.footer}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("Home") }}>
+                            <Icon icon="material-symbols:home" width={"2.5rem"} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.navigate("Buscador") }}>
+                            <Icon icon="ph:magnifying-glass-bold" width={"2.5rem"} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </>
         </>
     );
@@ -73,4 +94,37 @@ const styles = StyleSheet.create({
         paddingLeft: '5rem',
         paddingRight: '5rem'
     },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      image: {
+        width: "auto",
+        height: "auto",
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+      },
+      card: {
+        padding: '0px',
+        borderRadius: 20,
+        maxWidth: '18rem',
+        maxHeight: '20rem',
+        marginBottom: '3rem'
+      },
+      division: {
+        backgroundColor:'green',
+        borderBottomRightRadius: 30,
+        borderBottomLeftRadius: 30,
+      },
+      texto:{
+        color:'white', 
+        display: 'flex', 
+        justifyContent:"center", 
+        alignItems:"center", 
+        margin:'1rem', 
+        fontSize:'1.2rem', 
+        fontWeight: 'bold',
+      }
 });
