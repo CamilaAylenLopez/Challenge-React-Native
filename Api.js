@@ -3,7 +3,7 @@ const API2= 'https://api.spoonacular.com/recipes/information?apikey= &complexSea
 
 
 //key de kasses --> 8608f7ce293a4b16a44cb134dcda129d
-//key de cami --> 7bcb73bccf54400b8a96d33fbf71bdec
+//key de lata --> 7bcb73bccf54400b8a96d33fbf71bdec
 // buscar un plato en especifico POR NOMBRE: https://api.spoonacular.com/recipes/information?apikey={KEY}&complexSearch?query={plato}
 // buscar un plato en especifico POR ID: https://api.spoonacular.com/recipes/{ID}/information?apikey={KEY}
 
