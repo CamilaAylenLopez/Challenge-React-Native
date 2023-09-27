@@ -6,33 +6,55 @@ import { ActionTypes, setContextState, useContextState } from '../navigation/con
 
 export default function Info({ navigation }, id) {
     const { contextState, setContextState } = useContextState()
-    const [platos, setPlatos] = useState([{
-        id: null,
-        image: null,
-        title: null,
+    const [infoPlato, setInfoPlato] = useState([{
+        vegetarian: null,
+        glutenFree: null,
+        veryHealthy: null,
+        cheap: null,
+        veryPopular: null
     }])
-    useEffect(() =>{
-        getPlatoInformation(contextState.id)
-        console.log(contextState.id)
-    },[])
+
+    const traerDatos = async () => {
+        const data = await getPlatoInformation(contextState.id)
+        const updatedPlatos = data.results.map(e => ({
+            vegetarian: e.vegetarian,
+            glutenFree: e.glutenFree,
+            veryHealthy: e.veryHealthy,
+            cheap: e.cheap,
+            veryPopular: e.veryPopular
+        }))
+        console.log(updatedPlatos)
+        setInfoPlato(updatedPlatos)
+    }
+
+    useEffect(() => {
+        traerDatos()
+    }, [])
+
     return (
         <View style={styles.container}>
+            <Text>Info de ${contextState.nombre}</Text>
             {
-                    platos != null && platos.map((platos) =>
-                        <View key={platos.id}>
-                            <View style={styles.card}>
-                                <img src={platos.image} style={styles.image} />
-                                <View style={styles.division}>
-                                    <Text style={styles.texto}>{platos.title}</Text>
-                                    <View style={{flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around'}}>
-                                        <Icon icon="zondicons:add-solid" width={25}/>
-                                        <Icon icon="zondicons:close-solid" width={25}/>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    )
-                }
+                infoPlato != null && infoPlato.map((infoPlato, i) =>
+                    <View key={i}>
+                        <Text>Vegano: {infoPlato.vegetarian}</Text>
+                        <Text>Libre de gluten: {infoPlato.glutenFree}</Text>
+                        <Text>Saludable: {infoPlato.veryHealthy}</Text>
+                        <Text>Barato: {infoPlato.cheap}</Text>
+                        <Text>Popular: {infoPlato.veryPopular}</Text>
+                    </View>
+                )
+            }
+            <View style={styles.footer}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Home") }}>
+                        <Icon icon="material-symbols:home" width={"2.5rem"} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Buscador") }}>
+                        <Icon icon="ph:magnifying-glass-bold" width={"2.5rem"} />
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     );
 }
@@ -56,5 +78,15 @@ const styles = StyleSheet.create({
         backgroundColor: "#5654E1",
         borderRadius: 15,
         padding: 10,
-    }
+    },
+    footer: {
+        flex: 1,
+        display: "flex",
+        justifyContent: "flex-end",
+        marginBottom: "1rem",
+        width: "100%",
+        alignContent: 'space-around',
+        paddingLeft: '5rem',
+        paddingRight: '5rem'
+    },
 });

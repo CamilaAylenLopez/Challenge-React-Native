@@ -11,7 +11,6 @@ export default function Home({ navigation }) {
         title: null,
     }])
     const { contextState, setContextState } = useContextState()
-    
 
     const traerTodosPlatos = async () => {
         const data = await getPlatos()
@@ -25,10 +24,19 @@ export default function Home({ navigation }) {
     }
 
     const verInfo = (id) => {
+        const platoIndex = platos.findIndex((plato) => plato.id === id);
         setContextState({
             type: ActionTypes.SetId,
             value: id
-        });
+        })
+        setContextState({
+            type: ActionTypes.SetNombre,
+            value: platos[platoIndex].title
+        })
+        setContextState({
+            type: ActionTypes.SetImagen,
+            value: platos[platoIndex].image
+        })
         navigation.navigate("Info")
     }
 
@@ -40,7 +48,6 @@ export default function Home({ navigation }) {
             setPlatos(nuevaLista);
         }
     }
-
 
     useEffect(() => {
         traerTodosPlatos();

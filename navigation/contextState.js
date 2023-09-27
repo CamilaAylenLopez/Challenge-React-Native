@@ -3,15 +3,29 @@ import React from "react";
 
 export const initialState = {
     id: -1,
+    nombre: '',
+    imagen: '',
 }
 
 export const ActionTypes = {
     SetId: 'SET_ID',
+    SetNombre: 'SET_NOMBRE',
+    SetImagen: 'SET_IMAGEN',
 }
 
 export const reducer = (state = {}, action) => {
     switch (action.type) {
         case ActionTypes.SetId:
+            return {
+                ...state,
+                id: action.value,
+            };
+        case ActionTypes.SetNombre:
+            return {
+                ...state,
+                id: action.value,
+            };
+        case ActionTypes.SetImagen:
             return {
                 ...state,
                 id: action.value,

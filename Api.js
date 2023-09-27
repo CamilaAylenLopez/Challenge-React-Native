@@ -25,7 +25,7 @@ export const getPaltoByNombre = async (plato) => {
 }
 
 export const getPlatoInformation = async (id) => {
-  const response = await fetch(API3 + `${id}/information?apiKey=7bcb73bccf54400b8a96d33fbf71bdec&includeNutrition=true`, {
+  const response = await fetch(API3 + `${id}` + `/information?apiKey=7bcb73bccf54400b8a96d33fbf71bdec&includeNutrition=true`, {
     method: 'GET',
   });
   console.log(response) 
