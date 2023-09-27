@@ -2,6 +2,7 @@ import { StyleSheet, Button, Text, View, Alert, SafeAreaView, TouchableOpacity, 
 import React, { useState, useEffect } from "react";
 import { Icon } from '@iconify/react';
 import { getPlatos } from '../Api'; // Asegúrate de importar esta función desde tu módulo Api
+import { ActionTypes, setContextState, useContextState } from '../navigation/contextState';
 
 export default function Home({ navigation }) {
     const [platos, setPlatos] = useState([{
@@ -9,6 +10,8 @@ export default function Home({ navigation }) {
         image: null,
         title: null,
     }])
+    const { contextState, setContextState } = useContextState()
+    
 
     const traerTodosPlatos = async () => {
         const data = await getPlatos()
@@ -21,6 +24,14 @@ export default function Home({ navigation }) {
         setPlatos(updatedPlatos)
     }
 
+    const verInfo = (id) => {
+        setContextState({
+            type: ActionTypes.SetId,
+            value: id
+        });
+        navigation.navigate("Info")
+    }
+
 
     useEffect(() => {
         traerTodosPlatos();
@@ -30,12 +41,13 @@ export default function Home({ navigation }) {
         <>
 
             <>
+            <TouchableOpacity onPress={() =>{ navigation.navigate("InicioDeSesion") }}>LOGIN</TouchableOpacity>
                 <Text>Menú:</Text>
                 {
                     platos != null && platos.map((platos) =>
                         <View key={platos.id}>
                             <View style={styles.card}>
-                                <img src={platos.image} style={styles.image} />
+                            <TouchableOpacity style={styles.boton} onPress={() => verInfo(platos.id)}><img src={platos.image} style={styles.image} /></TouchableOpacity>
                                 <View style={styles.division}>
                                     <Text style={styles.texto}>{platos.title}</Text>
                                     {/* <Text style={styles.texto}>{platos.caracteristicas}</Text> */}

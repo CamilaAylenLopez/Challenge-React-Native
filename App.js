@@ -1,16 +1,18 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from './screens/Home';
 import InicioDeSesion from './screens/InicioDeSesion';
+import MainStack from './navigation/MainStack';
+import  { ContextProvider } from './navigation/contextState'
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='HomeScreen' component={Home}
+    <ContextProvider>
+      <SafeAreaView style= {{flex: 1}}>
+        {/* <Stack.Screen name='HomeScreen' component={Home}
           options={({navigation}) => ({
             title: "HomeScreen",
             headerStyle: {
@@ -29,9 +31,10 @@ export default function App() {
               backgroundColor: 'lightblue'
             }
           })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+        /> */}
+        <MainStack />
+      </SafeAreaView>
+      </ContextProvider>
   )
 }
 

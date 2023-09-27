@@ -1,5 +1,6 @@
 const API1 = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=7bcb73bccf54400b8a96d33fbf71bdec'
-const API2= 'https://api.spoonacular.com/recipes/information?apikey=7bcb73bccf54400b8a96d33fbf71bdec&complexSearch?query='
+const API2= 'https://api.spoonacular.com/recipes/complexSearch?apiKey=7bcb73bccf54400b8a96d33fbf71bdec&query='
+const API3 = 'https://api.spoonacular.com/recipes/'
 
 
 //key de kasses --> 8608f7ce293a4b16a44cb134dcda129d
@@ -17,6 +18,11 @@ export const getPlatos = async () => {
 
 export const getPaltoByNombre = async (plato) => {
   const response = await fetch(`${API2}${plato}`);
+  const data = await response.json();
+  return data;
+}
+export const getPlatoInformation = async (id) => {
+  const response = await fetch(`${API3}${id}/information?apikey=7bcb73bccf54400b8a96d33fbf71bdec&includeNutrition=true`);
   const data = await response.json();
   return data;
 }
