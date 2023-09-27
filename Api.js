@@ -1,6 +1,5 @@
 const API1 = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=7bcb73bccf54400b8a96d33fbf71bdec'
-const API2= 'https://api.spoonacular.com/recipes/complexSearch?apiKey=7bcb73bccf54400b8a96d33fbf71bdec&query='
-const API3 = 'https://api.spoonacular.com/recipes/'
+const API2= 'https://api.spoonacular.com/recipes/information?apikey=7bcb73bccf54400b8a96d33fbf71bdec&complexSearch?query='
 
 
 //key de kasses --> 8608f7ce293a4b16a44cb134dcda129d
