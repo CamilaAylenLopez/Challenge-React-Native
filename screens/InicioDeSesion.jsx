@@ -20,6 +20,8 @@ export default function InicioDeSesion({ navigation }) {
         navigation.navigate('Home')
     };
     return (
+        <>
+        <TouchableOpacity onPress={() =>{ navigation.navigate("Home") }}><Text>HOME</Text></TouchableOpacity>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
                 <Form.Group as={Col} md="3" controlId="validationCustomUsername">
@@ -49,6 +51,7 @@ export default function InicioDeSesion({ navigation }) {
             </Row>
             <Button type="submit">Submit form</Button>
         </Form>
+        </>
     )
 }
 
