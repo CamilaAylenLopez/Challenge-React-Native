@@ -32,6 +32,15 @@ export default function Home({ navigation }) {
         navigation.navigate("Info")
     }
 
+    const eliminarDelMenu = (id) => {
+        const platoIndex = platos.findIndex((plato) => plato.id === id);
+        if (platoIndex !== -1) {
+            const nuevaLista = [...platos];
+            nuevaLista.splice(platoIndex, 1);
+            setPlatos(nuevaLista);
+        }
+    }
+
 
     useEffect(() => {
         traerTodosPlatos();
@@ -41,7 +50,7 @@ export default function Home({ navigation }) {
         <>
 
             <>
-            <TouchableOpacity onPress={() =>{ navigation.navigate("InicioDeSesion") }}>LOGIN</TouchableOpacity>
+            <TouchableOpacity onPress={() =>{ navigation.navigate("InicioDeSesion") }}><Text>LOGIN</Text></TouchableOpacity>
                 <Text>Menú:</Text>
                 {
                     platos != null && platos.map((platos) =>
@@ -53,13 +62,12 @@ export default function Home({ navigation }) {
                                     {/* <Text style={styles.texto}>{platos.caracteristicas}</Text> */}
                                     <View style={{flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around'}}>
                                         <Icon icon="zondicons:add-solid" width={25}/>
-                                        <Icon icon="zondicons:close-solid" width={25}/>
+                                        <TouchableOpacity onPress={() => eliminarDelMenu(platos.id)}>
+                                            <Icon icon="zondicons:close-solid" width={25}/>
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
-                            {/* <img src={platos.image} />
-                            <p>Nombre: {platos.title}</p> */}
-                            {/* <p>Precio: ${platos.pricePerServing}</p> */}
                         </View>
                     )
                 }
