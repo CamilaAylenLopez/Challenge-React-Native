@@ -54,24 +54,24 @@ export default function Home({ navigation }) {
     }, []);
 
     return (
-    <SafeAreaView style={styles.container}>
-        <ScrollView>
-            <TouchableOpacity onPress={() =>{ navigation.navigate("InicioDeSesion") }}><Text>LOGIN</Text></TouchableOpacity>
+        <SafeAreaView style={styles.container}>
+            <ScrollView>
+                <TouchableOpacity onPress={() => { navigation.navigate("InicioDeSesion") }}><Text>LOGIN</Text></TouchableOpacity>
                 <Text style={styles.titulo}>Menú:</Text>
                 {
                     platos != null && platos.map((platos) =>
                         <View key={platos.id}>
                             <View style={styles.card}>
-                            <img src={platos.image} style={styles.image} />
+                                <img src={platos.image} style={styles.image} />
                                 <View style={styles.division}>
                                     <Text style={styles.texto}>{platos.title}</Text>
                                     {/* <Text style={styles.texto}>{platos.caracteristicas}</Text> */}
-                                    <View style={{flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around'}}>
+                                    <View style={{ flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around' }}>
                                         <TouchableOpacity onPress={() => verInfo(platos.id)}>
-                                            <Icon icon="zondicons:add-solid" width={25}/>
+                                            <Icon icon="zondicons:add-solid" width={25} />
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => eliminarDelMenu(platos.id)}>
-                                            <Icon icon="zondicons:close-solid" width={25}/>
+                                            <Icon icon="zondicons:close-solid" width={25} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -89,8 +89,8 @@ export default function Home({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-        </ScrollView>
-    </SafeAreaView>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -126,32 +126,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      image: {
+    },
+    image: {
         width: "auto",
         height: "auto",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-      },
-      card: {
+    },
+    card: {
         padding: '0px',
         borderRadius: 20,
         maxWidth: '18rem',
         maxHeight: '20rem',
         marginBottom: '3rem'
-      },
-      division: {
-        backgroundColor:'green',
+    },
+    division: {
+        backgroundColor: 'green',
         borderBottomRightRadius: 30,
         borderBottomLeftRadius: 30,
-      },
-      texto:{
-        color:'white', 
-        display: 'flex', 
-        justifyContent:"center", 
-        alignItems:"center", 
-        margin:'1rem', 
-        fontSize:'1.2rem', 
+    },
+    texto: {
+        color: 'white',
+        display: 'flex',
+        justifyContent: "center",
+        alignItems: "center",
+        margin: '1rem',
+        fontSize: '1.2rem',
         fontWeight: 'bold',
-      }
+    }
 });
