@@ -23,12 +23,12 @@ export const reducer = (state = {}, action) => {
         case ActionTypes.SetNombre:
             return {
                 ...state,
-                id: action.value,
+                nombre: action.value,
             };
         case ActionTypes.SetImagen:
             return {
                 ...state,
-                id: action.value,
+                imagen: action.value,
             };
         default:
             return state;

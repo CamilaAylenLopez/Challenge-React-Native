@@ -28,16 +28,17 @@ export default function Home({ navigation }) {
         setContextState({
             type: ActionTypes.SetId,
             value: id
-        })
+        });
         setContextState({
             type: ActionTypes.SetNombre,
             value: platos[platoIndex].title
-        })
+        });
         setContextState({
             type: ActionTypes.SetImagen,
             value: platos[platoIndex].image
-        })
+        });
         navigation.navigate("Info")
+        console.log("PLATO NOMBRE: " + platos[platoIndex].title)
     }
 
     const eliminarDelMenu = (id) => {

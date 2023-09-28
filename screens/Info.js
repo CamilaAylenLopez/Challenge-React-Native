@@ -7,30 +7,29 @@ import { ActionTypes, setContextState, useContextState } from '../navigation/con
 export default function Info({ navigation }) {
     const { contextState, setContextState } = useContextState()
     const [formSubmitted, setFormSubmitted] = useState(false)
-    const [hayInformacionDelPlato, setHayInformacionDelPlato] = useState(false)
-    const [infoPlato, setInfoPlato] = useState([{
+    const [hayInformacionDelPlato, setHayInformacionDelPlato] = useState(true)
+    const [infoPlato, setInfoPlato] = useState({
         vegetarian: null,
         glutenFree: null,
         veryHealthy: null,
         cheap: null,
         veryPopular: null
-    }])
+    })
 
     const traerDatos = async () => {
         const data = await getPlatoInformation(contextState.id)
-        if(data === ''){
-            const updatedPlatos = data.results.map(e => ({
-                vegetarian: e.vegetarian,
-                glutenFree: e.glutenFree,
-                veryHealthy: e.veryHealthy,
-                cheap: e.cheap,
-                veryPopular: e.veryPopular
-            }))
-            console.log(updatedPlatos)
+        if (data) {
+            const updatedPlatos = {
+                vegetarian: data.vegetarian,
+                glutenFree: data.glutenFree,
+                veryHealthy: data.veryHealthy,
+                cheap: data.cheap,
+                veryPopular: data.veryPopular
+            }
             setInfoPlato(updatedPlatos)
         }
-        else{
-            setHayInformacionDelPlato(true)
+        else {
+            setHayInformacionDelPlato(false)
         }
     }
 
@@ -48,22 +47,19 @@ export default function Info({ navigation }) {
     useEffect(() => {
         traerDatos()
     }, [])
-
+    console.log(infoPlato)
     return (
         <View style={styles.container}>
-            {hayInformacionDelPlato ? (
+            {hayInformacionDelPlato && infoPlato.vegetarian != null?  (
                 <>
-                    <Text>Info de ${contextState.nombre}</Text>
-                    {infoPlato != null &&
-                        infoPlato.map((infoPlato, i) => (
-                            <View key={i}>
-                                <Text>Vegetariano: {infoPlato.vegetarian}</Text>
-                                <Text>Libre de gluten: {infoPlato.glutenFree}</Text>
-                                <Text>Saludable: {infoPlato.veryHealthy}</Text>
-                                <Text>Barato: {infoPlato.cheap}</Text>
-                                <Text>Popular: {infoPlato.veryPopular}</Text>
-                            </View>
-                        ))}
+                    <Text>Info de {contextState.nombre}</Text>
+                    <View>
+                        <Text>Vegetariano: {infoPlato.vegetarian.toString()}</Text>
+                        <Text>Libre de gluten: {infoPlato.glutenFree.toString()}</Text>
+                        <Text>Saludable: {infoPlato.veryHealthy.toString()}</Text>
+                        <Text>Barato: {infoPlato.cheap.toString()}</Text>
+                        <Text>Popular: {infoPlato.veryPopular.toString()}</Text>
+                    </View>
                 </>
             ) :
                 <>
@@ -91,7 +87,7 @@ export default function Info({ navigation }) {
                         onValueChange={(value) => handleResponseChange('veryPopular', value)}
                     />
 
-                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
                         <Text style={styles.texto}>Enviar</Text>
                     </TouchableOpacity>
                     {formSubmitted && (
