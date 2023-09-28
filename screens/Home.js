@@ -11,16 +11,21 @@ export default function Home({ navigation }) {
         title: null,
     }])
     const { contextState, setContextState } = useContextState()
+    const [hayInfo, setHayInfo] = useState(true)
 
     const traerTodosPlatos = async () => {
         const data = await getPlatos()
-        const updatedPlatos = data.results.map(e => ({
-            id: e.id,
-            image: e.image,
-            title: e.title,
-        }))
-        console.log(updatedPlatos)
-        setPlatos(updatedPlatos)
+        if(data && data.status != 'failure'){
+            const updatedPlatos = data.results.map(e => ({
+                id: e.id,
+                image: e.image,
+                title: e.title,
+            }))
+            setPlatos(updatedPlatos)
+        }
+        else{
+            setHayInfo(false)
+        }
     }
 
     const verInfo = (id) => {
@@ -56,10 +61,10 @@ export default function Home({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
+
                 <TouchableOpacity onPress={() => { navigation.navigate("InicioDeSesion") }}><Text>LOGIN</Text></TouchableOpacity>
                 <Text style={styles.titulo}>Menú:</Text>
-                {
+                {hayInfo ? (
                     platos != null && platos.map((platos) =>
                         <View key={platos.id}>
                             <View style={styles.card}>
@@ -78,7 +83,10 @@ export default function Home({ navigation }) {
                                 </View>
                             </View>
                         </View>
-                    )
+                    )):
+                    <View style={[{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}]}>
+                        <Text style={styles.titulo}>Lo sentimos no hemos encontrando platos</Text>
+                    </View>
                 }
                 <View style={styles.footer}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -90,7 +98,7 @@ export default function Home({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
+
         </SafeAreaView>
     );
 }
@@ -111,6 +119,11 @@ const styles = StyleSheet.create({
         fontSize: "1.5rem",
         marginTop: "3rem",
         marginBottom: "3rem",
+        textAlign: 'center'
+    },
+    espacioMargen: {
+        padding: 0,
+        margin: 0
     },
     footer: {
         flex: 1,
