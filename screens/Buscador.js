@@ -1,10 +1,13 @@
 import { StyleSheet, Button, Text, View, Alert, SafeAreaView, TouchableOpacity, FlatList, TextInput } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon } from '@iconify/react';
-import { getPlatos, getPaltoByNombre } from '../Api'; // Asegúrate de importar esta función desde tu módulo Api
+import { getPaltoByNombre } from '../Api';
+import { ActionTypes, setContextState, useContextState } from '../navigation/contextState';
+
 
 export default function Buscador({ navigation }) {
-    const [text, onChangeText] = React.useState('Useless Text');
+    const { contextState, setContextState } = useContextState()
+    const [text, onChangeText] = React.useState('');
     const [platos, setPlatos] = useState([{
         id: null,
         image: null,
@@ -18,8 +21,30 @@ export default function Buscador({ navigation }) {
             image: e.image,
             title: e.title,
         }))
-        console.log(updatedPlatos)
         setPlatos(updatedPlatos)
+    }
+
+    const agregarAlMenu = (id) => {
+        const platoIndex = platos.findIndex((plato) => plato.id === id);
+        setContextState({
+            type: ActionTypes.SetIdNuevoPlato,
+            value: id
+        });
+        setContextState({
+            type: ActionTypes.SetNombreNuevoPlato,
+            value: platos[platoIndex].title
+        });
+        setContextState({
+            type: ActionTypes.SetImagenNuevoPlato,
+            value: platos[platoIndex].image
+        });
+        setContextState({
+            type: ActionTypes.SetseEstaAgregandoPlato,
+            value: true
+        });
+        console.log(setContextState.idNuevoPlato)
+        console.log(setContextState.nombreNuevoPlato)
+        console.log(setContextState.imagenNuevoPlato)
     }
 
     return (
@@ -27,8 +52,9 @@ export default function Buscador({ navigation }) {
             <Text style={styles.titulo}>Buscar...</Text>
             <TextInput
                 style={styles.input}
-                onChangeText={onChangeText}
                 value={text}
+                onChangeText={onChangeText}
+                placeholder="buscar..."
             />
             <TouchableOpacity style={styles.boton} onPress={() => buscarPlato(text)}><Text>buscar</Text></TouchableOpacity>
 
@@ -40,8 +66,9 @@ export default function Buscador({ navigation }) {
                             <View style={styles.division}>
                                 <Text style={styles.texto}>{platos.title}</Text>
                                 <View style={{ flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around' }}>
-                                    <Icon icon="zondicons:add-solid" width={25} />
-                                    <Icon icon="zondicons:close-solid" width={25} />
+                                    <TouchableOpacity onPress={() => agregarAlMenu(platos.id)}>
+                                        <Icon icon="zondicons:add-solid" width={25} />
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>

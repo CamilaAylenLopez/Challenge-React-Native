@@ -1,9 +1,10 @@
-const API1 = 'https://api.spoonacular.com/recipes/complexSearch?apiKey='
-const API2= 'https://api.spoonacular.com/recipes/complexSearch?apiKey=&query='
+const API1 = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=d5952207753c42b8950925fdf0a38b36'
+const API2= 'https://api.spoonacular.com/recipes/complexSearch?apiKey=d5952207753c42b8950925fdf0a38b36&query='
 const API3 = 'https://api.spoonacular.com/recipes/'
 
 //key de kasses --> 8608f7ce293a4b16a44cb134dcda129d
-//key de lata --> 7bcb73bccf54400b8a96d33fbf71bdec
+//key de cami --> 7bcb73bccf54400b8a96d33fbf71bdec
+//key de cami x2 --> d5952207753c42b8950925fdf0a38b36
 // buscar un plato en especifico POR NOMBRE: https://api.spoonacular.com/recipes/information?apikey={KEY}&complexSearch?query={plato}
 // buscar un plato en especifico POR ID: https://api.spoonacular.com/recipes/{ID}/information?apikey={KEY}
 // te pone los ingredientes de una receta: https://api.spoonacular.com/recipes/1003464/ingredientWidget.json?apiKey={KEY}}
@@ -25,7 +26,7 @@ export const getPaltoByNombre = async (plato) => {
 }
 
 export const getPlatoInformation = async (id) => {
-  const response = await fetch(API3 + `${id}` + `/information?apiKey=&includeNutrition=true`, {
+  const response = await fetch(API3 + `${id}` + `/information?apiKey=d5952207753c42b8950925fdf0a38b36&includeNutrition=true`, {
     method: 'GET',
   });
   console.log(response) 

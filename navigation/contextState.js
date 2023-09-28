@@ -5,12 +5,20 @@ export const initialState = {
     id: -1,
     nombre: '',
     imagen: '',
+    idNuevoPlato: -1,
+    nombreNuevoPlato: '',
+    imagenNuevoPlato: '',
+    seEstaAgregandoPlato: false,
 }
 
 export const ActionTypes = {
     SetId: 'SET_ID',
     SetNombre: 'SET_NOMBRE',
     SetImagen: 'SET_IMAGEN',
+    SetIdNuevoPlato: 'SET_IDNUEVOPLATO',
+    SetNombreNuevoPlato: 'SET_NOMBREUEVOPLATO',
+    SetImagenNuevoPlato: 'SET_IMAGENUEVOPLATO',
+    SetseEstaAgregandoPlato: 'SET_SEESTAAGREGANDOPLATO'
 }
 
 export const reducer = (state = {}, action) => {
@@ -29,6 +37,26 @@ export const reducer = (state = {}, action) => {
             return {
                 ...state,
                 imagen: action.value,
+            };
+        case ActionTypes.SetIdNuevoPlato:
+            return {
+                ...state,
+                idNuevoPlato: action.value,
+            };
+        case ActionTypes.SetNombreNuevoPlato:
+            return {
+                ...state,
+                nombreNuevoPlato: action.value,
+            };
+        case ActionTypes.SetImagenNuevoPlato:
+            return {
+                ...state,
+                imagenNuevoPlato: action.value,
+            };
+        case ActionTypes.SetseEstaAgregandoPlato:
+            return {
+                ...state,
+                seEstaAgregandoPlato: action.value,
             };
         default:
             return state;

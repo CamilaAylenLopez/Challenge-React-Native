@@ -55,15 +55,32 @@ export default function Home({ navigation }) {
         }
     }
 
+    const agregarPlatoAlMenu = () => {
+        const updatedPlatos = {
+            id: contextState.idNuevoPlato,
+            image: contextState.imagenNuevoPlato,
+            title: contextState.nombreNuevoPlato,
+        }
+        platos.push(updatedPlatos)
+        setContextState({
+            type: ActionTypes.SetseEstaAgregandoPlato,
+            value: false
+        });
+    }
+
     useEffect(() => {
         traerTodosPlatos();
     }, []);
+    useEffect(() => {
+        agregarPlatoAlMenu();
+    }, [contextState.seEstaAgregandoPlato]);
 
     return (
         <SafeAreaView style={styles.container}>
 
                 <TouchableOpacity onPress={() => { navigation.navigate("InicioDeSesion") }}><Text>LOGIN</Text></TouchableOpacity>
                 <Text style={styles.titulo}>Menú:</Text>
+                <ScrollView>
                 {hayInfo ? (
                     platos != null && platos.map((platos) =>
                         <View key={platos.id}>
@@ -71,13 +88,12 @@ export default function Home({ navigation }) {
                                 <img src={platos.image} style={styles.image} />
                                 <View style={styles.division}>
                                     <Text style={styles.texto}>{platos.title}</Text>
-                                    {/* <Text style={styles.texto}>{platos.caracteristicas}</Text> */}
                                     <View style={{ flexDirection: "row", marginBottom: '1rem', display: 'flex', justifyContent: 'space-around' }}>
                                         <TouchableOpacity onPress={() => verInfo(platos.id)}>
-                                            <Icon icon="zondicons:add-solid" width={25} />
+                                            <Icon icon="zondicons:add-solid" width={25} color="white"/>
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => eliminarDelMenu(platos.id)}>
-                                            <Icon icon="zondicons:close-solid" width={25} />
+                                            <Icon icon="zondicons:close-solid" width={25} color="white"/>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -88,6 +104,7 @@ export default function Home({ navigation }) {
                         <Text style={styles.titulo}>Lo sentimos no hemos encontrando platos</Text>
                     </View>
                 }
+                </ScrollView>
                 <View style={styles.footer}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <TouchableOpacity onPress={() => { navigation.navigate("Home") }}>
@@ -133,7 +150,8 @@ const styles = StyleSheet.create({
         width: "100%",
         alignContent: 'space-around',
         paddingLeft: '5rem',
-        paddingRight: '5rem'
+        paddingRight: '5rem',
+        backgroundColor: 'white'
     },
     container: {
         flex: 1,
