@@ -9,6 +9,8 @@ export const initialState = {
     nombreNuevoPlato: '',
     imagenNuevoPlato: '',
     seEstaAgregandoPlato: false,
+    mail: '',
+    contrasenia: '',
 }
 
 export const ActionTypes = {
@@ -18,7 +20,9 @@ export const ActionTypes = {
     SetIdNuevoPlato: 'SET_IDNUEVOPLATO',
     SetNombreNuevoPlato: 'SET_NOMBREUEVOPLATO',
     SetImagenNuevoPlato: 'SET_IMAGENUEVOPLATO',
-    SetseEstaAgregandoPlato: 'SET_SEESTAAGREGANDOPLATO'
+    SetseEstaAgregandoPlato: 'SET_SEESTAAGREGANDOPLATO',
+    Setmail: 'SET_MAIL',
+    SetContrasenia: 'SET_CONTRASENIA',
 }
 
 export const reducer = (state = {}, action) => {
@@ -57,6 +61,16 @@ export const reducer = (state = {}, action) => {
             return {
                 ...state,
                 seEstaAgregandoPlato: action.value,
+            };
+        case ActionTypes.mail:
+            return {
+                ...state,
+                Setmail: action.value,
+            };
+        case ActionTypes.contrasenia:
+            return {
+                ...state,
+                SetContrasenia: action.value,
             };
         default:
             return state;
