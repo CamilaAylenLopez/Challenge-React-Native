@@ -1,16 +1,17 @@
 import { createContext, useContext, useState } from 'react';
 import { ActionTypes, setContextState, useContextState } from '../navigation/contextState';
+import { postLogin } from '../Api';
 
 const AuthContext = createContext();
-const [user, setUser] = useState(null);
-const [loading, setLoading] = useState(false);
-const { contextState, setContextState } = useContextState()
 
 export function useAuth() {
     return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+
     const login = async (email, password) => {
         setLoading(true);
 
@@ -28,8 +29,10 @@ export function AuthProvider({ children }) {
 
     function fakeLogin(email, password) {
         // Simulación de inicio de sesión
+        const { contextState, setContextState } = useContextState()
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
+            setTimeout(async() => {
+                //http://challenge-react.alkemy.org?email=challenge@alkemy.org&password=react
                 if (email === 'challenge@alkemy.org' && password === 'react') {
 
                     setContextState({
@@ -40,16 +43,18 @@ export function AuthProvider({ children }) {
                         type: ActionTypes.SetContrasenia,
                         value: password
                     });
-                    setContextState({
-                        type: ActionTypes.SetToken,
-                        value: token
-                    });
+                    const token = null
 
-                    // Genera un token aleatorio como si fuera un JWT
-                    const token = Math.random().toString(36).substring(7);
-
+                    if(await postLogin() != error)
+                    {
+                        token = await postLogin();
+                        setContextState({
+                            type: ActionTypes.SetToken,
+                            value: token.token
+                        });
+                    }
                     resolve({ token });
-                    /* el token es un string aleatorio que se genera para identificar al usuario */
+
                     /* en una aplicación real, el token se genera en el servidor y se envía al cliente */
                     /* para este ejemplo, el token se genera en el cliente */
 

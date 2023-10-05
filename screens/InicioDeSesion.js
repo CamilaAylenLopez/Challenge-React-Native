@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
+import { StyleSheet, Text, View, Alert, SafeAreaView, TouchableOpacity, FlatList, TextInput } from "react-native";
 import React, { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import { useAuth } from '../navigation/AuthContext';
@@ -10,24 +10,28 @@ export default function InicioDeSesion({ navigation }) {
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
-        try {
-            await login(email, password)
-            navigation.navigate('Home');
-        } catch (error) {
-            console.error('Error al iniciar sesión:', error);
+        if(email != '' && password != ''){
+            try {
+                await login(email, password)
+                navigation.navigate('Home');
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+            }
+        }
+        else{
+            alert("Complete los campos")
         }
     }
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Iniciar Sesión</Text>
+            <Text style={styles.titulo}>Iniciar Sesión</Text>
             <TextInput
-                style={styles.input}
+
                 placeholder="Correo electrónico"
                 onChangeText={(text) => setEmail(text)}
                 value={email}
             />
             <TextInput
-                style={styles.input}
                 placeholder="Contraseña"
                 secureTextEntry
                 onChangeText={(text) => setPassword(text)}
