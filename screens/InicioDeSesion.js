@@ -37,11 +37,12 @@ export default function InicioDeSesion({ navigation }) {
                 onChangeText={(text) => setPassword(text)}
                 value={password}
             />
+            <TouchableOpacity onPress={handleLogin}>
             <Button
                 title="Iniciar Sesión"
-                onPress={handleLogin}
                 disabled={loading}
             />
+            </TouchableOpacity>
         </View>
     )
 }
