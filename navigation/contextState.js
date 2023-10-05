@@ -11,6 +11,7 @@ export const initialState = {
     seEstaAgregandoPlato: false,
     mail: '',
     contrasenia: '',
+    token: -1,
 }
 
 export const ActionTypes = {
@@ -23,6 +24,7 @@ export const ActionTypes = {
     SetseEstaAgregandoPlato: 'SET_SEESTAAGREGANDOPLATO',
     Setmail: 'SET_MAIL',
     SetContrasenia: 'SET_CONTRASENIA',
+    SetToken: 'SET_TOKEN'
 }
 
 export const reducer = (state = {}, action) => {
@@ -71,6 +73,11 @@ export const reducer = (state = {}, action) => {
             return {
                 ...state,
                 SetContrasenia: action.value,
+            };
+        case ActionTypes.token:
+            return {
+                ...state,
+                SetToken: action.value,
             };
         default:
             return state;

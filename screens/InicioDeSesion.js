@@ -2,27 +2,16 @@ import { StyleSheet, Text, View, Alert, SafeAreaView, TouchableOpacity, FlatList
 import React, { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import { useAuth } from '../navigation/AuthContext';
-import { ActionTypes, setContextState, useContextState } from '../navigation/contextState';
 
 export default function InicioDeSesion({ navigation }) {
     const [validated, setValidated] = useState(false);
     const { login, loading } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { contextState, setContextState } = useContextState()
 
     const handleLogin = async () => {
         try {
             await login(email, password)
-
-            setContextState({
-                type: ActionTypes.Setmail,
-                value: email
-            });
-            setContextState({
-                type: ActionTypes.SetContrasenia,
-                value: password
-            });
             navigation.navigate('Home');
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
