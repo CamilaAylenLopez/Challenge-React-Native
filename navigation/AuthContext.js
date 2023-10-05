@@ -31,9 +31,9 @@ export function AuthProvider({ children }) {
         // Simulación de inicio de sesión
         const { contextState, setContextState } = useContextState()
         return new Promise((resolve, reject) => {
-            setTimeout(async() => {
+            setTimeout(async () => {
                 //http://challenge-react.alkemy.org?email=challenge@alkemy.org&password=react
-                if (email === 'challenge@alkemy.org' && password === 'react') {
+                if (await postLogin() != error) {
 
                     setContextState({
                         type: ActionTypes.Setmail,
@@ -45,14 +45,12 @@ export function AuthProvider({ children }) {
                     });
                     const token = null
 
-                    if(await postLogin() != error)
-                    {
-                        token = await postLogin();
-                        setContextState({
-                            type: ActionTypes.SetToken,
-                            value: token.token
-                        });
-                    }
+                    token = await postLogin();
+                    setContextState({
+                        type: ActionTypes.SetToken,
+                        value: token.token
+                    });
+
                     resolve({ token });
 
                     /* en una aplicación real, el token se genera en el servidor y se envía al cliente */
