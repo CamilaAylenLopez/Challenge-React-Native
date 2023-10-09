@@ -11,6 +11,8 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { contextState, setContextState } = useContextState()
+
 
     const login = async (email, password) => {
         setLoading(true);
@@ -29,23 +31,12 @@ export function AuthProvider({ children }) {
 
     function fakeLogin(email, password) {
         // Simulación de inicio de sesión
-        const { contextState, setContextState } = useContextState()
         return new Promise((resolve, reject) => {
             setTimeout(async () => {
                 //http://challenge-react.alkemy.org?email=challenge@alkemy.org&password=react
-                if (await postLogin() != error) {
-
-                    setContextState({
-                        type: ActionTypes.Setmail,
-                        value: email
-                    });
-                    setContextState({
-                        type: ActionTypes.SetContrasenia,
-                        value: password
-                    });
-                    const token = null
-
-                    token = await postLogin();
+                if (await postLogin(email, password) != Error) {
+                    let token = null
+                    token = await postLogin(email, password)
                     setContextState({
                         type: ActionTypes.SetToken,
                         value: token.token

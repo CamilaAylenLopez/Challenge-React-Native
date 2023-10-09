@@ -13,7 +13,7 @@ export default function InicioDeSesion({ navigation }) {
         if(email != '' && password != ''){
             try {
                 await login(email, password)
-                navigation.navigate('Home');
+                navigation.navigate('Home')
             } catch (error) {
                 console.error('Error al iniciar sesión:', error);
             }
